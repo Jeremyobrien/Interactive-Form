@@ -14,3 +14,5 @@ jobRole.addEventListener('change', (e) =>{
         }
 });
 
+const shirtColors = document.querySelector('#color');
+shirtColors.disabled = true;
