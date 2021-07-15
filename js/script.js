@@ -31,3 +31,13 @@ shirtDesigns.addEventListener('change', (e)=>{
             }
     }
     });
+
+    const activities = document.querySelector('#activities');
+    const activitiesCost= document.querySelector('#activities-cost');
+    let totalCost = 0;
+
+    activities.addEventListener('change', (e)=>{
+        const cost = e.target.getAttribute('data-cost');
+       
+        console.log(typeof +cost);
+    })
