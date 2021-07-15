@@ -14,5 +14,20 @@ jobRole.addEventListener('change', (e) =>{
         }
 });
 
+const shirtDesigns = document.querySelector('#design');
 const shirtColors = document.querySelector('#color');
 shirtColors.disabled = true;
+shirtDesigns.addEventListener('change', (e)=>{
+    shirtColors.disabled = false;
+    for (let i = 0; i < shirtColors.children.length; i++){
+        const colorChoice = e.target.value;
+        const dataTheme =  shirtColors.children[i].getAttribute('data-theme');
+        if(colorChoice === dataTheme) {
+            shirtColors.children[i].hidden = false;
+            shirtColors.children[i].setAttribute('selected', true);
+            } else {
+                shirtColors.children[i].hidden = true;
+                shirtColors.children[i].setAttribute('selected', false);
+            }
+    }
+    });
