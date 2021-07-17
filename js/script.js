@@ -56,20 +56,15 @@ shirtDesigns.addEventListener('change', (e)=>{
     payment.children[1].setAttribute('selected', true);
 
     payment.addEventListener('change', (e)=> {
-        payment.children[1].setAttribute('selected', false);
-        creditCard.style.display = 'none';
-        for (let i=0; i < payment.children.length; i++) {
+        for (let i=1; i < payment.children.length; i++) {
             const payChoice = document.querySelector(`#${e.target.value}`);
             const paymentIterable = document.querySelector(`#${payment.children[i].value}`);
             
-            if (payChoice == paymentIterable){
-                payChoice.children.style.display = 'block';
+            if (payChoice === paymentIterable){
+                return payChoice.style.display = 'block';
             } else {       
-                paymentIterable.children.hidden =  true;
+                paymentIterable.hidden =  true;
             }
         }
     })
-    console.log(payment);
-    console.log(creditCard);
-    console.log(payPal);
-    console.log(bitCoin);
+    
