@@ -70,4 +70,71 @@ shirtDesigns.addEventListener('change', (e)=>{
                  bitCoin.style.display = 'block';
             }
     })
+
+    const form = document.querySelector('form');
+    const email = document.querySelector('#email');
+    const cardNum = document.querySelector('#cc-num');
+    const zip = document.querySelector('#zip');
+    const cvv = document.querySelector('#cvv');
+    
+    const nameValidator = () => {
+        const nameValue = nameField.value;
+        const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameValue);
+        return nameIsValid;
+    }
+
+    const emailValidator = () => {
+        const emailValue = email.value;
+        const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/.test(emailValue);
+        return emailIsValid;
+    }
+
+    const activitiesValidator = () => {
+        if (totalCost > 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    const cardValidator = () => {
+        const cardValue = +cardNum.value;
+        const cardIsValid = /^\d{13,16}$/.test(cardValue);
+        return cardIsValid;
+    }
+    
+    const zipValidator = () => {
+        const zipValue = +zip.value;
+        const zipIsValid = /^\d{5}$/.test(zipValue);
+        return zipIsValid;
+    }
+
+    const cvvValidator = () => {
+        const cvvValue = +cvv.value;
+        const CvvValid = /^\d{3}$/.test(cvvValue);
+        return CvvValid;
+    }
+
+
+    form.addEventListener('submit', (e)=>{
+        if(!nameValidator()){
+            e.preventDefault();
+            console.log('name invalid');
+        } else if (!emailValidator()){
+            e.preventDefault();
+            console.log('email invalid');
+        }else if (!activitiesValidator()){
+            e.preventDefault();
+            console.log('select at least one activity');
+        }else if (!cardValidator()){
+            e.preventDefault();
+            console.log('card number invalid');
+        }else if (!zipValidator()){
+            e.preventDefault();
+            console.log('zip invalid');
+        }else if (!cvvValidator()){
+            e.preventDefault();
+            console.log('cvv invalid');
+        }
+    })
     
