@@ -54,17 +54,20 @@ shirtDesigns.addEventListener('change', (e)=>{
     payPal.style.display = 'none';
     bitCoin.style.display = 'none';
     payment.children[1].setAttribute('selected', true);
-
     payment.addEventListener('change', (e)=> {
-        for (let i=1; i < payment.children.length; i++) {
-            const payChoice = document.querySelector(`#${e.target.value}`);
-            const paymentIterable = document.querySelector(`#${payment.children[i].value}`);
-            
-            if (payChoice === paymentIterable){
-                return payChoice.style.display = 'block';
-            } else {       
-                paymentIterable.hidden =  true;
+            const payChoice = e.target.value;          
+            if (payChoice === 'credit-card'){
+                 creditCard.style.display = 'block';
+                 payPal.style.display = 'none';
+                 bitCoin.style.display = 'none';              
+            } else if(payChoice==='paypal') {       
+                 creditCard.style.display = 'none';
+                 payPal.style.display = 'block';
+                 bitCoin.style.display = 'none';
+            } else if(payChoice === 'bitcoin'){
+                 creditCard.style.display = 'none';
+                 payPal.style.display = 'none';
+                 bitCoin.style.display = 'block';
             }
-        }
     })
     
