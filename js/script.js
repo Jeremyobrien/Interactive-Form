@@ -76,16 +76,36 @@ shirtDesigns.addEventListener('change', (e)=>{
     const cardNum = document.querySelector('#cc-num');
     const zip = document.querySelector('#zip');
     const cvv = document.querySelector('#cvv');
+
+    form.addEventListener('submit', (e)=>{
+
+    const validationPass = (input)=>{
     
+        input.parentElement.classList.add('valid');
+        input.parentElement.classList.remove('not-valid');
+        input.parentElement.lastElementChild.hidden = true;
+    }
+
+    const validationFail = (input)=>{
+        input.parentElement.classList.add('not-valid');
+        input.parentElement.classList.remove('valid');
+        input.parentElement.lastElementChild.hidden = false;
+    }
     const nameValidator = () => {
         const nameValue = nameField.value;
         const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameValue);
+        if (nameIsValid){
+            validationPass(nameField);
+        }
         return nameIsValid;
     }
 
     const emailValidator = () => {
         const emailValue = email.value;
-        const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/.test(emailValue);
+        const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/.test(emailValue);  
+        if (emailIsValid){
+            validationPass(email);
+        }
         return emailIsValid;
     }
 
@@ -100,41 +120,60 @@ shirtDesigns.addEventListener('change', (e)=>{
     const cardValidator = () => {
         const cardValue = +cardNum.value;
         const cardIsValid = /^\d{13,16}$/.test(cardValue);
+        if (cardIsValid){
+            validationPass(cardNum);
+        }
         return cardIsValid;
     }
     
     const zipValidator = () => {
         const zipValue = +zip.value;
         const zipIsValid = /^\d{5}$/.test(zipValue);
+        if (zipIsValid){
+            validationPass(zip);
+        }
         return zipIsValid;
     }
 
     const cvvValidator = () => {
         const cvvValue = +cvv.value;
-        const CvvValid = /^\d{3}$/.test(cvvValue);
-        return CvvValid;
+        const cvvValid = /^\d{3}$/.test(cvvValue);
+        if (cvvValid){
+            validationPass(cvv);
+        }
+        return cvvValid;
     }
 
+    // const activitiesCheckBoxes = document.querySelectorAll('#activities-box input[type=checkbox]');
+    // for (let i = 0; i < activitiesCheckBoxes.length; i++) {
+    //     activitiesCheckBoxes.addEventListener('focus', ()=>{
+    //         activitiesCheckBoxes[i].parentElement.classList.add('focus');
+    //     })
+    //     activitiesCheckBoxes.addEventListener('blur', ()=>{
+    //         activitiesCheckBoxes[i].parentElement.classList.remove('focus');
+    //     })
+    // }
 
-    form.addEventListener('submit', (e)=>{
+   
+    
         if(!nameValidator()){
             e.preventDefault();
-            console.log('name invalid');
+            validationFail(nameField);
         } else if (!emailValidator()){
             e.preventDefault();
-            console.log('email invalid');
+            validationFail(email);
         }else if (!activitiesValidator()){
             e.preventDefault();
-            console.log('select at least one activity');
+            validationFail(activities);
         }else if (!cardValidator()){
             e.preventDefault();
-            console.log('card number invalid');
+            validationFail(cardNum);
         }else if (!zipValidator()){
             e.preventDefault();
-            console.log('zip invalid');
+            validationFail(zip);
         }else if (!cvvValidator()){
             e.preventDefault();
-            console.log('cvv invalid');
+            validationFail(cvv);
         }
     })
     
