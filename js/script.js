@@ -1,3 +1,5 @@
+window.addEventListener('load', () =>{
+
 //'Name' field receives default focus
 const nameField = document.querySelector('#name');
 nameField.focus();
@@ -16,26 +18,59 @@ jobRole.addEventListener('change', (e) =>{
 
 const shirtDesigns = document.querySelector('#design');
 const shirtColors = document.querySelector('#color');
-shirtColors.disabled = true;
+const colorOption = document.querySelectorAll('#color option');
+shirtColors.disabled = true; 
 shirtDesigns.addEventListener('change', (e)=>{
-    shirtColors.disabled = false;
-    for (let i = 0; i < shirtColors.children.length; i++){
-        const colorChoice = e.target.value;
-        const dataTheme =  shirtColors.children[i].getAttribute('data-theme');
-        if(colorChoice === dataTheme) {
-            shirtColors.children[i].hidden = false;
-            shirtColors.children[i].setAttribute('selected', true);
+    const designChoice = e.target.value;
+    
+    for (let i = 0; i < shirtColors.length; i++){    
+        const dataTheme =  shirtColors[i].getAttribute('data-theme');  
+        if(designChoice === dataTheme) {
+            shirtColors[i].hidden = false;
+            shirtColors[i].setAttribute('selected', true);
             } else {
-                shirtColors.children[i].hidden = true;
-                shirtColors.children[i].setAttribute('selected', false);
-            }
+                shirtColors[i].hidden = true;
+                shirtColors[i].setAttribute('selected', false);
+            }     
     }
-    });
+    shirtColors.disabled = false;
+    if(designChoice === 'js puns') {
+        colorOption[1].selected = true;
+    } else if (designChoice === 'heart js'){
+        colorOption[4].selected = true;
+    }
+ });
 
+const activitiesCheckboxes = document.querySelector('#activities-box');
+const childrenCheckboxes = activitiesCheckboxes.children;
+
+const checkboxFocusFunct = (e) => {
+    
+   for(let i = 0; i < childrenCheckboxes.length; i++) {
+        activitiesCheckboxes.addEventListener('focus', ()=>{
+            if (e.target===childrenCheckboxes[i]){
+                childrenCheckboxes[i].classList.add('focus');
+                
+            } else if (e.target!==childrenCheckboxes[i] && e.target.data-day-and-time === childrenCheckboxes[i].data-day-and-time) {
+                childrenCheckboxes[i].classList.remove('focus');
+                childrenCheckboxes[i].disabled = true;
+            }
+        })
+
+        
+        activitiesCheckboxes.addEventListener('blur', ()=>{
+            if (e.target !== childrenCheckboxes[i] && e.target.span === childrenCheckboxes[i].span) {
+            childrenCheckboxes[i].classList.remove('focus');
+         } 
+        })
+    }
+}
+checkboxFocusFunct();
     const activities = document.querySelector('#activities');
     const activitiesCost= document.querySelector('#activities-cost');
     let totalCost= 0;
     activities.addEventListener('change', (e)=>{
+
         let cost = e.target.getAttribute('data-cost');
         cost =  +cost;
         if(e.target.checked){
@@ -45,8 +80,9 @@ shirtDesigns.addEventListener('change', (e)=>{
              totalCost -= cost;
              activitiesCost.innerHTML = `Total: $${totalCost}`;
         }
+        checkboxFocusFunct(e.target);
     })
-
+    
     const payment = document.querySelector('#payment');
     const creditCard = document.querySelector('#credit-card');
     const payPal = document.querySelector('#paypal');
@@ -143,18 +179,6 @@ shirtDesigns.addEventListener('change', (e)=>{
         }
         return cvvValid;
     }
-
-    // const activitiesCheckBoxes = document.querySelectorAll('#activities-box input[type=checkbox]');
-    // for (let i = 0; i < activitiesCheckBoxes.length; i++) {
-    //     activitiesCheckBoxes.addEventListener('focus', ()=>{
-    //         activitiesCheckBoxes[i].parentElement.classList.add('focus');
-    //     })
-    //     activitiesCheckBoxes.addEventListener('blur', ()=>{
-    //         activitiesCheckBoxes[i].parentElement.classList.remove('focus');
-    //     })
-    // }
-
-   
     
         if(!nameValidator()){
             e.preventDefault();
@@ -175,5 +199,5 @@ shirtDesigns.addEventListener('change', (e)=>{
             e.preventDefault();
             validationFail(cvv);
         }
-    })
-    
+    })    
+});  
