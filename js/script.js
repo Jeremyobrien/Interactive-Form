@@ -22,7 +22,6 @@ const colorOption = document.querySelectorAll('#color option');
 shirtColors.disabled = true; 
 shirtDesigns.addEventListener('change', (e)=>{
     const designChoice = e.target.value;
-    
     for (let i = 0; i < shirtColors.length; i++){    
         const dataTheme =  shirtColors[i].getAttribute('data-theme');  
         if(designChoice === dataTheme) {
@@ -41,46 +40,35 @@ shirtDesigns.addEventListener('change', (e)=>{
     }
  });
 
-const activitiesCheckboxes = document.querySelector('#activities-box');
-const childrenCheckboxes = activitiesCheckboxes.children;
-
-const checkboxFocusFunct = (e) => {
-    
-   for(let i = 0; i < childrenCheckboxes.length; i++) {
-        activitiesCheckboxes.addEventListener('focus', ()=>{
-            if (e.target===childrenCheckboxes[i]){
-                childrenCheckboxes[i].classList.add('focus');
-                
-            } else if (e.target!==childrenCheckboxes[i] && e.target.data-day-and-time === childrenCheckboxes[i].data-day-and-time) {
-                childrenCheckboxes[i].classList.remove('focus');
-                childrenCheckboxes[i].disabled = true;
-            }
-        })
-
-        
-        activitiesCheckboxes.addEventListener('blur', ()=>{
-            if (e.target !== childrenCheckboxes[i] && e.target.span === childrenCheckboxes[i].span) {
-            childrenCheckboxes[i].classList.remove('focus');
-         } 
-        })
-    }
-}
-checkboxFocusFunct();
     const activities = document.querySelector('#activities');
+    const activitiesCheckboxes = document.querySelectorAll('#activities input');
+    console.log(activitiesCheckboxes);
     const activitiesCost= document.querySelector('#activities-cost');
     let totalCost= 0;
     activities.addEventListener('change', (e)=>{
-
+        const activity = e.target;
+        const activityType = e.target.getAttribute('data-day-and-time');
         let cost = e.target.getAttribute('data-cost');
         cost =  +cost;
-        if(e.target.checked){
-             totalCost += cost;
-             activitiesCost.innerHTML = `Total: $${totalCost}`;
-        }else if (!e.target.checked){
-             totalCost -= cost;
-             activitiesCost.innerHTML = `Total: $${totalCost}`;
+        for( let i = 0; i < activitiesCheckboxes.length; i++){
+            const checkboxType = activitiesCheckboxes[i].getAttribute('data-day-and-time');
+            if(activityType === checkboxType && activity !== activitiesCheckboxes[i]){
+                activitiesCheckboxes[i].disabled = true;
+            }
+                else {
+                activitiesCheckboxes[i].disabled = false;
+            }    
         }
-        checkboxFocusFunct(e.target);
+        for( let i = 0; i < activitiesCheckboxes.length; i++){
+            if (activity.checked && activity === activitiesCheckboxes[i]){    
+                totalCost += cost;
+                activitiesCost.innerHTML = `<b>Total: $${totalCost}</b>`;
+        }
+            else if (!activity.checked && activity === activitiesCheckboxes[i]){
+                totalCost -= cost;
+                activitiesCost.innerHTML = `<b>Total: $${totalCost}</b>`;
+            }
+        }
     })
     
     const payment = document.querySelector('#payment');
