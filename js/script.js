@@ -15,10 +15,11 @@ jobRole.addEventListener('change', (e) =>{
             otherJobRole.style.display= 'none';
         }
 });
-
+//Variables for "T-Shirt" section
 const shirtDesigns = document.querySelector('#design');
 const shirtColors = document.querySelector('#color');
 const colorOption = document.querySelectorAll('#color option');
+//Event listener that only allows applicable shir color options depending on shirt theme chosen
 shirtColors.disabled = true; 
 shirtDesigns.addEventListener('change', (e)=>{
     const designChoice = e.target.value;
@@ -32,6 +33,7 @@ shirtDesigns.addEventListener('change', (e)=>{
                 shirtColors[i].setAttribute('selected', false);
             }     
     }
+    //Shows default color option per theme
     shirtColors.disabled = false;
     if(designChoice === 'js puns') {
         colorOption[1].selected = true;
@@ -39,13 +41,14 @@ shirtDesigns.addEventListener('change', (e)=>{
         colorOption[4].selected = true;
     }
  });
-
+    //Variables for "Register for Activities" section
     const activities = document.querySelector('#activities');
     const activitiesCheckboxes = document.querySelectorAll('#activities input');
     const activitiesCost= document.querySelector('#activities-cost');
     const activitiesBox = document.querySelector('#activities-box');
     let totalCost= 0;
     const activityLabel = document.querySelectorAll('#activities-box label');
+    //Event listeners to focus or blur activities when using 'tab'
     activityLabel[0].firstElementChild.addEventListener('focus', (e) => {
         e.target.parentNode.className = 'focus';
     })
@@ -96,7 +99,7 @@ shirtDesigns.addEventListener('change', (e)=>{
     })
 
 
-
+    //Event Listener that disables conflicting activities and tracks total cost
     activities.addEventListener('change', (e)=>{
         const activity = e.target;
         const activityTime = e.target.getAttribute('data-day-and-time');
@@ -124,19 +127,20 @@ shirtDesigns.addEventListener('change', (e)=>{
         for( let i = 0; i < activitiesCheckboxes.length; i++) {
             if (activity.checked && activity === activitiesCheckboxes[i]) {    
                 totalCost += cost;
-                activitiesCost.innerHTML = `<b>Total: $${totalCost}</b>`;
+                activitiesCost.innerHTML = `Total: $${totalCost}`;
         }
             else if (!activity.checked && activity === activitiesCheckboxes[i]) {
                 totalCost -= cost;
-                activitiesCost.innerHTML = `<b>Total: $${totalCost}</b>`;
+                activitiesCost.innerHTML = `Total: $${totalCost}`;
             }
         }
     });
-    
+    //Payment variables
     const payment = document.querySelector('#payment');
     const creditCard = document.querySelector('#credit-card');
     const payPal = document.querySelector('#paypal');
     const bitCoin = document.querySelector('#bitcoin');
+    //Sets credit card as default payment option and shows only selected payment option
     payPal.style.display = 'none';
     bitCoin.style.display = 'none';
     payment.children[1].setAttribute('selected', true);
@@ -156,12 +160,13 @@ shirtDesigns.addEventListener('change', (e)=>{
                  bitCoin.style.display = 'block';
             }
     })
-
+    //Validation variables
     const form = document.querySelector('form');
     const email = document.querySelector('#email');
     const cardNum = document.querySelector('#cc-num');
     const zip = document.querySelector('#zip');
     const cvv = document.querySelector('#cvv');
+    //Listens to validator functions and either provides errors or submits completed form
     form.addEventListener('submit', (e)=>{
 
     const validationPass = (input)=>{
