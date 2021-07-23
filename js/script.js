@@ -42,34 +42,43 @@ shirtDesigns.addEventListener('change', (e)=>{
 
     const activities = document.querySelector('#activities');
     const activitiesCheckboxes = document.querySelectorAll('#activities input');
-    console.log(activitiesCheckboxes);
     const activitiesCost= document.querySelector('#activities-cost');
     let totalCost= 0;
     activities.addEventListener('change', (e)=>{
         const activity = e.target;
-        const activityType = e.target.getAttribute('data-day-and-time');
+        const activityTime = e.target.getAttribute('data-day-and-time');
         let cost = e.target.getAttribute('data-cost');
         cost =  +cost;
-        for( let i = 0; i < activitiesCheckboxes.length; i++){
-            const checkboxType = activitiesCheckboxes[i].getAttribute('data-day-and-time');
-            if(activityType === checkboxType && activity !== activitiesCheckboxes[i]){
-                activitiesCheckboxes[i].disabled = true;
+        for( let i = 0; i < activitiesCheckboxes.length; i++) {
+             const checkboxTime = activitiesCheckboxes[i].getAttribute('data-day-and-time');
+             if(activity.checked) {
+                if(activityTime === checkboxTime && activity !== activitiesCheckboxes[i]) {
+                    activitiesCheckboxes[i].disabled = true;
+                } 
+                    else if (activityTime !== checkboxTime && activitiesCheckboxes[i].disabled === true) {
+                    activitiesCheckboxes[i].disabled = true;
+                }
+                    else {
+                    activitiesCheckboxes[i].disabled = false;
+                } 
             }
-                else {
-                activitiesCheckboxes[i].disabled = false;
-            }    
-        }
-        for( let i = 0; i < activitiesCheckboxes.length; i++){
-            if (activity.checked && activity === activitiesCheckboxes[i]){    
+             else if(!activity.checked && activityTime === checkboxTime) {
+                
+                    activitiesCheckboxes[i].disabled = false;
+                }
+         }
+
+        for( let i = 0; i < activitiesCheckboxes.length; i++) {
+            if (activity.checked && activity === activitiesCheckboxes[i]) {    
                 totalCost += cost;
                 activitiesCost.innerHTML = `<b>Total: $${totalCost}</b>`;
         }
-            else if (!activity.checked && activity === activitiesCheckboxes[i]){
+            else if (!activity.checked && activity === activitiesCheckboxes[i]) {
                 totalCost -= cost;
                 activitiesCost.innerHTML = `<b>Total: $${totalCost}</b>`;
             }
         }
-    })
+    });
     
     const payment = document.querySelector('#payment');
     const creditCard = document.querySelector('#credit-card');
@@ -100,7 +109,7 @@ shirtDesigns.addEventListener('change', (e)=>{
     const cardNum = document.querySelector('#cc-num');
     const zip = document.querySelector('#zip');
     const cvv = document.querySelector('#cvv');
-
+    const activitiesBox = document.querySelector('#activities-box');
     form.addEventListener('submit', (e)=>{
 
     const validationPass = (input)=>{
@@ -176,7 +185,7 @@ shirtDesigns.addEventListener('change', (e)=>{
             validationFail(email);
         }else if (!activitiesValidator()){
             e.preventDefault();
-            validationFail(activities);
+            validationFail(activitiesBox);
         }else if (!cardValidator()){
             e.preventDefault();
             validationFail(cardNum);
