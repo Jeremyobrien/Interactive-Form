@@ -43,7 +43,60 @@ shirtDesigns.addEventListener('change', (e)=>{
     const activities = document.querySelector('#activities');
     const activitiesCheckboxes = document.querySelectorAll('#activities input');
     const activitiesCost= document.querySelector('#activities-cost');
+    const activitiesBox = document.querySelector('#activities-box');
     let totalCost= 0;
+    const activityLabel = document.querySelectorAll('#activities-box label');
+    activityLabel[0].firstElementChild.addEventListener('focus', (e) => {
+        e.target.parentNode.className = 'focus';
+    })
+    activityLabel[0].firstElementChild.addEventListener('blur', (e) => {
+        e.target.parentNode.className = '';
+    })
+
+    activityLabel[1].firstElementChild.addEventListener('focus', (e) => {
+        e.target.parentNode.className = 'focus';
+    })
+    activityLabel[1].firstElementChild.addEventListener('blur', (e) => {
+        e.target.parentNode.className = '';
+    })
+
+    activityLabel[2].firstElementChild.addEventListener('focus', (e) => {
+        e.target.parentNode.className = 'focus';
+    })
+    activityLabel[2].firstElementChild.addEventListener('blur', (e) => {
+        e.target.parentNode.className = '';
+    })
+
+    activityLabel[3].firstElementChild.addEventListener('focus', (e) => {
+        e.target.parentNode.className = 'focus';
+    })
+    activityLabel[3].firstElementChild.addEventListener('blur', (e) => {
+        e.target.parentNode.className = '';
+    })
+
+    activityLabel[4].firstElementChild.addEventListener('focus', (e) => {
+        e.target.parentNode.className = 'focus';
+    })
+    activityLabel[4].firstElementChild.addEventListener('blur', (e) => {
+        e.target.parentNode.className = '';
+    })
+
+    activityLabel[5].firstElementChild.addEventListener('focus', (e) => {
+        e.target.parentNode.className = 'focus';
+    })
+    activityLabel[5].firstElementChild.addEventListener('blur', (e) => {
+        e.target.parentNode.className = '';
+    })
+
+    activityLabel[6].firstElementChild.addEventListener('focus', (e) => {
+        e.target.parentNode.className = 'focus';
+    })
+    activityLabel[6].firstElementChild.addEventListener('blur', (e) => {
+        e.target.parentNode.className = '';
+    })
+
+
+
     activities.addEventListener('change', (e)=>{
         const activity = e.target;
         const activityTime = e.target.getAttribute('data-day-and-time');
@@ -109,7 +162,6 @@ shirtDesigns.addEventListener('change', (e)=>{
     const cardNum = document.querySelector('#cc-num');
     const zip = document.querySelector('#zip');
     const cvv = document.querySelector('#cvv');
-    const activitiesBox = document.querySelector('#activities-box');
     form.addEventListener('submit', (e)=>{
 
     const validationPass = (input)=>{
