@@ -163,12 +163,35 @@ shirtDesigns.addEventListener('change', (e)=>{
     //Validation variables
     const form = document.querySelector('form');
     const email = document.querySelector('#email');
+    const emailHint = document.querySelector('#email-hint');
     const cardNum = document.querySelector('#cc-num');
     const zip = document.querySelector('#zip');
     const cvv = document.querySelector('#cvv');
-    //Listens to validator functions and either provides errors or submits completed form
-    form.addEventListener('submit', (e)=>{
 
+    //Event listener that provides real time validation for email address
+    email.addEventListener('keyup', ()=>{
+        if(email.value.length === 0){
+            emailHint.textContent = 'Please enter an e-mail address.';
+        } 
+        else if (email.validity.valid){
+            emailHint.textContent = '';
+            emailHint.className = 'error-border';
+            validationPass(email);
+        } else {
+            validationFail(email);
+            showError();
+        }
+    })
+    //Shows error message for real time validation of email
+    function showError() {
+        if(email.validity.typeMismatch) {
+            emailHint.textContent =`Please enter a valid e-mail address`;
+        } else {
+            emailHint.className = 'email-hint';
+        }
+    }
+
+    //Validation helper functions that apply validation styling
     const validationPass = (input)=>{
     
         input.parentElement.classList.add('valid');
@@ -181,19 +204,23 @@ shirtDesigns.addEventListener('change', (e)=>{
         input.parentElement.classList.remove('valid');
         input.parentElement.lastElementChild.hidden = false;
     }
+
+    //Listens to validator functions and either provides errors or submits completed form
+    form.addEventListener('submit', (e)=>{
+ 
     const nameValidator = () => {
         const nameValue = nameField.value;
         const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameValue);
         if (nameIsValid){
             validationPass(nameField);
-        }
+        } 
         return nameIsValid;
     }
 
     const emailValidator = () => {
         const emailValue = email.value;
-        const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/.test(emailValue);  
-        if (emailIsValid){
+        const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/.test(emailValue);
+        if(emailIsValid){
             validationPass(email);
         }
         return emailIsValid;
@@ -233,7 +260,7 @@ shirtDesigns.addEventListener('change', (e)=>{
         }
         return cvvValid;
     }
-    
+    //tests all 'submit' validator functions
         if(!nameValidator()){
             e.preventDefault();
             validationFail(nameField);
@@ -253,5 +280,5 @@ shirtDesigns.addEventListener('change', (e)=>{
             e.preventDefault();
             validationFail(cvv);
         }
-    })    
-});  
+    });
+});
