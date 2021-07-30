@@ -168,28 +168,19 @@ shirtDesigns.addEventListener('change', (e)=>{
     const zip = document.querySelector('#zip');
     const cvv = document.querySelector('#cvv');
 
-    //Event listener that provides real time validation for email address
+    //Event listener that provides real time validation for email address     
     email.addEventListener('keyup', ()=>{
-        if(email.value.length === 0){
-            emailHint.textContent = 'Please enter an e-mail address.';
-        } 
-        else if (email.validity.valid){
-            emailHint.textContent = '';
-            emailHint.className = 'error-border';
-            validationPass(email);
-        } else {
+            emailHint.style.display = 'block';
+            emailHint.textContent = 'Please enter an email address.'
+        if (email.value.length > 0 && !email.validity.valid) {
+            emailHint.textContent = 'Email address must be formatted correctly';
+            emailHint.style.display = 'block';
             validationFail(email);
-            showError();
+        }else if (email.value.length > 0 && email.validity.valid){
+            emailHint.style.display = 'none';
+            validationPass(email);   
         }
-    })
-    //Shows error message for real time validation of email
-    function showError() {
-        if(email.validity.typeMismatch) {
-            emailHint.textContent =`Please enter a valid e-mail address`;
-        } else {
-            emailHint.className = 'email-hint';
-        }
-    }
+    });
 
     //Validation helper functions that apply validation styling
     const validationPass = (input)=>{
