@@ -264,21 +264,23 @@ shirtDesigns.addEventListener('change', (e)=>{
         if(!nameValidator()){
             e.preventDefault();
             validationFail(nameField);
-        } else if (!emailValidator()){
+        }else if (!emailValidator()){
             e.preventDefault();
             validationFail(email);
         }else if (!activitiesValidator()){
             e.preventDefault();
             validationFail(activitiesBox);
-        }else if (!cardValidator()){
+        }else if(creditCard.style.display === 'block') {
+            if (!cardValidator()){
             e.preventDefault();
             validationFail(cardNum);
-        }else if (!zipValidator()){
+            } else if (!zipValidator()){
             e.preventDefault();
             validationFail(zip);
-        }else if (!cvvValidator()){
+            } else if (!cvvValidator()){
             e.preventDefault();
             validationFail(cvv);
         }
+    }
     });
 });
