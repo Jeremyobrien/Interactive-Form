@@ -115,7 +115,6 @@ shirtDesigns.addEventListener('change', (e)=>{
                 } 
                     else if (activityTime !== checkboxTime && activitiesCheckboxes[i].disabled === true) {
                     activitiesCheckboxes[i].disabled = true;
-                    activitiesCheckboxes[i].parentNode.className = 'disabled';
                 }
                     else {
                     activitiesCheckboxes[i].disabled = false;
@@ -209,18 +208,12 @@ shirtDesigns.addEventListener('change', (e)=>{
     const nameValidator = () => {
         const nameValue = nameField.value;
         const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameValue);
-        // if (nameIsValid){
-        //     validationPass(nameField);
-        // } 
         return nameIsValid;
     }
 
     const emailValidator = () => {
         const emailValue = email.value;
         const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/.test(emailValue);
-        // if(emailIsValid){
-        //     validationPass(email);
-        // }
         return emailIsValid;
     }
 
@@ -235,27 +228,18 @@ shirtDesigns.addEventListener('change', (e)=>{
     const cardValidator = () => {
         const cardValue = +cardNum.value;
         const cardIsValid = /^\d{13,16}$/.test(cardValue);
-        // if (cardIsValid){
-        //     validationPass(cardNum);
-        // }
         return cardIsValid;
     }
     
     const zipValidator = () => {
         const zipValue = +zip.value;
         const zipIsValid = /^\d{5}$/.test(zipValue);
-        // if (zipIsValid){
-        //     validationPass(zip);
-        // }
         return zipIsValid;
     }
 
     const cvvValidator = () => {
         const cvvValue = +cvv.value;
         const cvvValid = /^\d{3}$/.test(cvvValue);
-        // if (cvvValid){
-        //     validationPass(cvv);
-        // }
         return cvvValid;
     }
     //tests all 'submit' validator functions
