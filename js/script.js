@@ -171,7 +171,6 @@ shirtDesigns.addEventListener('change', (e)=>{
     const cvv = document.querySelector('#cvv');
     const reqField = document.querySelectorAll('.asterisk');
     const activitiesHint = document.querySelector('#activities-hint');
-    console.log(activitiesHint);
 
     //Event listener that provides real time validation for email address     
     email.addEventListener('keyup', ()=>{
