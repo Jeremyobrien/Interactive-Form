@@ -171,7 +171,8 @@ shirtDesigns.addEventListener('change', (e)=>{
     const zip = document.querySelector('#zip');
     const cvv = document.querySelector('#cvv');
     const reqField = document.querySelectorAll('.asterisk');
-    console.log(reqField);
+    const activitiesHint = document.querySelector('#activities-hint');
+    console.log(activitiesHint);
 
     //Event listener that provides real time validation for email address     
     email.addEventListener('keyup', ()=>{
@@ -199,6 +200,7 @@ shirtDesigns.addEventListener('change', (e)=>{
         input.parentElement.classList.add('not-valid');
         input.parentElement.classList.remove('valid');
         input.parentElement.lastElementChild.hidden = false;
+        input.nextElementSibling.style.display = 'block';
     }
 
     //Listens to validator functions and either provides errors or submits completed form
@@ -257,35 +259,61 @@ shirtDesigns.addEventListener('change', (e)=>{
         return cvvValid;
     }
     //tests all 'submit' validator functions
-    
-        if(!nameValidator()){
-            e.preventDefault();
-            validationFail(nameField);
-        }else if (!emailValidator()){
-            e.preventDefault();
-            validationFail(email);
-        }else if (!activitiesValidator()){
-            e.preventDefault();
-            validationFail(activitiesBox);
-        }else if (!cardValidator()){
-            e.preventDefault();
-            validationFail(cardNum);
-            } else if (!zipValidator()){
-            e.preventDefault();
-            validationFail(zip);
-            } else if (!cvvValidator()){
-            e.preventDefault();
-            validationFail(cvv);
+        if(payment.children[1].selected === true){
+            for(let i = 1; i< reqField.length; i++){
+                if(reqField[i].parentNode.children[1] === nameField && !nameValidator()){
+                    e.preventDefault();
+                    validationFail(nameField);
+                }else if(reqField[i].parentNode.children[1] === nameField && nameValidator()){
+                    validationPass(nameField);
+                }else if (reqField[i].parentNode.children[1] === email && !emailValidator()){
+                    e.preventDefault();
+                    validationFail(email);
+                }else if(reqField[i].parentNode.children[1] === email && emailValidator()){
+                    validationPass(email);
+                }else if (reqField[i].parentNode.parentNode === activities && !activitiesValidator()){
+                    e.preventDefault();
+                    validationFail(activitiesBox);
+                    activitiesHint.style.display = 'block';
+                }else if(reqField[i].parentNode.parentNode === activities && activitiesValidator()){
+                    validationPass(activitiesBox);
+                }else if (reqField[i].parentNode.children[1] === cardNum && !cardValidator()){
+                    e.preventDefault();
+                    validationFail(cardNum);
+                } else if(reqField[i].parentNode.children[1] === cardNum && cardValidator()){
+                    validationPass(cardNum);
+                }else if (reqField[i].parentNode.children[1] === zip && !zipValidator()){
+                    e.preventDefault();
+                    validationFail(zip);
+                } else if(reqField[i].parentNode.children[1] === zip && zipValidator()){
+                    validationPass(zip);
+                }else if (reqField[i].parentNode.children[1] === cvv && !cvvValidator()){
+                    e.preventDefault();
+                    validationFail(cvv);
+                }else if(reqField[i].parentNode.children[1] === cvv && cvvValidator()){
+                        validationPass(cvv);
+                    }
             }
-        
-       
+        } else if (payment.children[1].selected === false) {
+                for(let i = 1; i < reqField.length - 3; i++){
+                    if (reqField[i].parentNode.children[1] === nameField && !nameValidator()){
+                        e.preventDefault();
+                        validationFail(nameField);
+                    } else if (reqField[i].parentNode.children[1] === nameField && nameValidator()){
+                        validationPass(nameField);
+                    } else if (reqField[i].parentNode.children[1] === email && !emailValidator()){
+                        e.preventDefault();
+                        validationFail(email);
+                    } else if (reqField[i].parentNode.children[1] === email && emailValidator()){
+                        validationPass(email);
+                    } else if (reqField[i].parentNode.parentNode === activities && !activitiesValidator()){
+                        e.preventDefault();
+                        validationFail(activitiesBox);
+                        activitiesHint.style.display = 'block';
+                    } else if(reqField[i].parentNode.parentNode === activities && activitiesValidator()){
+                        validationPass(activitiesBox);
+                }
+             }
+         }
     });
-//     const reqSiblings =[];
-//     for (let i = 1; i < reqField.length; i++ ){
-//         reqSiblings.push(reqField[i]);
-//         for(let j=0; j<reqSiblings.length; j++){
-//             if (reqSiblings[j] !== )
-//         } 
-// }
-// return console.log(reqSiblings);
 });
