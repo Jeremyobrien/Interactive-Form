@@ -58,6 +58,7 @@ shirtDesigns.addEventListener('change', (e)=>{
 
     activityLabel[1].firstElementChild.addEventListener('focus', (e) => {
         e.target.parentNode.className = 'focus';
+    
     })
     activityLabel[1].firstElementChild.addEventListener('blur', (e) => {
         e.target.parentNode.className = '';
@@ -110,17 +111,19 @@ shirtDesigns.addEventListener('change', (e)=>{
              if(activity.checked) {
                 if(activityTime === checkboxTime && activity !== activitiesCheckboxes[i]) {
                     activitiesCheckboxes[i].disabled = true;
+                    activitiesCheckboxes[i].parentNode.className = 'disabled';
                 } 
                     else if (activityTime !== checkboxTime && activitiesCheckboxes[i].disabled === true) {
                     activitiesCheckboxes[i].disabled = true;
+                    activitiesCheckboxes[i].parentNode.className = 'disabled';
                 }
                     else {
                     activitiesCheckboxes[i].disabled = false;
                 } 
             }
              else if(!activity.checked && activityTime === checkboxTime) {
-                
                     activitiesCheckboxes[i].disabled = false;
+                    activitiesCheckboxes[i].parentNode.className = '';
                 }
          }
 
@@ -167,11 +170,13 @@ shirtDesigns.addEventListener('change', (e)=>{
     const cardNum = document.querySelector('#cc-num');
     const zip = document.querySelector('#zip');
     const cvv = document.querySelector('#cvv');
+    const reqField = document.querySelectorAll('.asterisk');
+    console.log(reqField);
 
     //Event listener that provides real time validation for email address     
     email.addEventListener('keyup', ()=>{
-            emailHint.style.display = 'block';
-            emailHint.textContent = 'Please enter an email address.'
+        emailHint.style.display = 'block';
+        emailHint.textContent = 'Please enter an email address.'
         if (email.value.length > 0 && !email.validity.valid) {
             emailHint.textContent = 'Email address must be formatted correctly';
             emailHint.style.display = 'block';
@@ -202,18 +207,18 @@ shirtDesigns.addEventListener('change', (e)=>{
     const nameValidator = () => {
         const nameValue = nameField.value;
         const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameValue);
-        if (nameIsValid){
-            validationPass(nameField);
-        } 
+        // if (nameIsValid){
+        //     validationPass(nameField);
+        // } 
         return nameIsValid;
     }
 
     const emailValidator = () => {
         const emailValue = email.value;
         const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/.test(emailValue);
-        if(emailIsValid){
-            validationPass(email);
-        }
+        // if(emailIsValid){
+        //     validationPass(email);
+        // }
         return emailIsValid;
     }
 
@@ -228,30 +233,31 @@ shirtDesigns.addEventListener('change', (e)=>{
     const cardValidator = () => {
         const cardValue = +cardNum.value;
         const cardIsValid = /^\d{13,16}$/.test(cardValue);
-        if (cardIsValid){
-            validationPass(cardNum);
-        }
+        // if (cardIsValid){
+        //     validationPass(cardNum);
+        // }
         return cardIsValid;
     }
     
     const zipValidator = () => {
         const zipValue = +zip.value;
         const zipIsValid = /^\d{5}$/.test(zipValue);
-        if (zipIsValid){
-            validationPass(zip);
-        }
+        // if (zipIsValid){
+        //     validationPass(zip);
+        // }
         return zipIsValid;
     }
 
     const cvvValidator = () => {
         const cvvValue = +cvv.value;
         const cvvValid = /^\d{3}$/.test(cvvValue);
-        if (cvvValid){
-            validationPass(cvv);
-        }
+        // if (cvvValid){
+        //     validationPass(cvv);
+        // }
         return cvvValid;
     }
     //tests all 'submit' validator functions
+    
         if(!nameValidator()){
             e.preventDefault();
             validationFail(nameField);
@@ -261,8 +267,7 @@ shirtDesigns.addEventListener('change', (e)=>{
         }else if (!activitiesValidator()){
             e.preventDefault();
             validationFail(activitiesBox);
-        }else if(creditCard.style.display === 'block') {
-            if (!cardValidator()){
+        }else if (!cardValidator()){
             e.preventDefault();
             validationFail(cardNum);
             } else if (!zipValidator()){
@@ -271,7 +276,16 @@ shirtDesigns.addEventListener('change', (e)=>{
             } else if (!cvvValidator()){
             e.preventDefault();
             validationFail(cvv);
-        }
-    }
+            }
+        
+       
     });
+//     const reqSiblings =[];
+//     for (let i = 1; i < reqField.length; i++ ){
+//         reqSiblings.push(reqField[i]);
+//         for(let j=0; j<reqSiblings.length; j++){
+//             if (reqSiblings[j] !== )
+//         } 
+// }
+// return console.log(reqSiblings);
 });
