@@ -192,6 +192,7 @@ shirtDesigns.addEventListener('change', (e)=>{
         input.parentElement.classList.add('valid');
         input.parentElement.classList.remove('not-valid');
         input.parentElement.lastElementChild.hidden = true;
+        input.nextElementSibling.style.display = 'none';
     }
 
     const validationFail = (input)=>{
@@ -260,6 +261,7 @@ shirtDesigns.addEventListener('change', (e)=>{
                     activitiesHint.style.display = 'block';
                 }else if(reqField[i].parentNode.parentNode === activities && activitiesValidator()){
                     validationPass(activitiesBox);
+                    activitiesHint.style.display = 'none';
                 }else if (reqField[i].parentNode.children[1] === cardNum && !cardValidator()){
                     e.preventDefault();
                     validationFail(cardNum);
